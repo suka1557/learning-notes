@@ -81,3 +81,27 @@ docker exec -it alpine_test bash
 
 This will open up the terminal of the container and you can interact with it as you like
 
+Docker containers are made up of Layers. Every time a RUN command is found, a new layer is added to the existing container.
+To keep the size of docker container small it is generally preferred to keep all package installations in 1 line (if possible).
+
+Modify the Dockerfile as shown below
+```docker
+# Use the Alpine Linux 3.15 as the base image
+FROM alpine:3.15
+# Update the package repository and install Python 3.8
+RUN apk update && \
+        apk add bash && \
+        apk add python3=3.9.18-r0 && \
+        apk add py3-pip
+ENTRYPOINT ["/bin/bash"]
+```
+Here using *&&* helps chain all the installation/add commands together creating a single layer. 
+
+To check how many layers are in your image and the size of each layer, use the below command. 
+```bash
+docker history <image_name_or_id>
+```
+
+When building containers, you should definitely do 2 things:
+* Use a linter to check code quality
+* Use a tool to check for Vulnerabilities in the packages (e.g, Anchore’s grype)
