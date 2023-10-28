@@ -29,3 +29,13 @@ os.remove('file_name')
 ```bash
 os.rmdir('/folder_name')
 ```
+
+# Set environment variables
+```bash
+os.environ['API_KEY']='abc123'
+```
+
+# Get environment variables
+```bash
+os.environ.get('API_KEY')
+```
