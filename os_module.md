@@ -1,5 +1,7 @@
+# Some useful commands with os module in Python
 # List the contents of a directory
 ```bash
+import os
 os.listdir('.') 
 ```
 
